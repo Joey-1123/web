@@ -1,5 +1,6 @@
-﻿assest/
+assest/
 s.txt
 .DS_Store
 Thumbs.db
-* text=auto
+node_modules/
+dist/

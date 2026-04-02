@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #050505;
+  --color-foreground: #f5f3ef;
+  --color-card: #0d0d0d;
+  --color-card-foreground: #f5f3ef;
+  --color-primary: #f5f3ef;
+  --color-primary-foreground: #050505;
+  --color-secondary: #171717;
+  --color-secondary-foreground: #f5f3ef;
+  --color-destructive: #7f1d1d;
+  --color-destructive-foreground: #f5f3ef;
+  --color-muted-foreground: rgba(245, 243, 239, 0.68);
+  --color-accent: #1f1f1f;
+  --color-accent-foreground: #f5f3ef;
+  --color-input: rgba(245, 243, 239, 0.16);
+  --color-ring: rgba(245, 243, 239, 0.85);
+}
+
+:root {
+  color-scheme: dark;
+  font-family: "Manrope", sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.04), transparent 18%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.015), transparent 18%),
+    #050505;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: transparent;
+  color: var(--color-foreground);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+a,
+button {
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease,
+    background-color 180ms ease;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+  outline-offset: 3px;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes ping {
+  75%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-ping {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.bg-gradient-orbital {
+  background: linear-gradient(to bottom right, #6366f1, #3b82f6, #14b8a6);
+}
+
+.shadow-orbital {
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}

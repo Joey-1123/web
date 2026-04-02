@@ -1,4 +1,4 @@
-﻿name: Validate HTML and CSS
+name: Validate React app
 
 on:
   push:
@@ -16,13 +16,11 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
+          cache: "npm"
 
-      - name: Install validators
-        run: npm install -g htmlhint stylelint stylelint-config-standard
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Validate HTML
-        run: htmlhint "**/*.html"
-
-      - name: Validate CSS
-        run: stylelint "**/*.css"
+      - name: Build app
+        run: npm run build
