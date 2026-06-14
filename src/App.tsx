@@ -1,24 +1,16 @@
-import {
-  Bot,
-  Mail,
-  Orbit,
-  Send,
-  Server,
-  Workflow,
-} from "lucide-react";
+import { Mail, Send } from "lucide-react";
 
 import { MinimalistHero } from "@/components/ui/minimalist-hero";
-import RadialOrbitalTimeline from "@/components/ui/radial-orbital-timeline";
 import { ContactForm } from "@/components/contact-form";
 import { QaSection } from "@/components/qa-section";
 import { GithubIcon } from "@/components/ui/github-icon";
 import { EMAIL, GITHUB_URL, TELEGRAM_URL } from "@/lib/constants";
 
 const navLinks = [
-  { label: "ABOUT", href: "#about" },
-  { label: "PROJECTS", href: "#projects" },
-  { label: "STACK", href: "#stack" },
-  { label: "CONNECT", href: "#connect" },
+  { label: "About", href: "#about" },
+  { label: "Work", href: "#projects" },
+  { label: "Stack", href: "#stack" },
+  { label: "Contact", href: "#connect" },
 ];
 
 const socialLinks = [
@@ -33,107 +25,43 @@ const projects = [
     status: "Active",
     description:
       "AST-based dependency tracker to detect code-change impact across services and repositories.",
+    tags: ["Python", "AST", "Analysis"],
   },
   {
     name: "Learnalytics",
     status: "Active",
     description:
-      "Django plus AI backend for learning analytics, structured APIs, and intelligent workflow support.",
+      "Django + AI backend for learning analytics, structured APIs, and intelligent workflow support.",
+    tags: ["Django", "AI", "API"],
   },
   {
     name: "Clover Game Hub",
     status: "Building",
     description:
-      "Android game-space app with future ROM integration and polished system-aware UX.",
+      "Android game-space app with future ROM integration and system-aware UX.",
+    tags: ["Android", "Kotlin", "Systems"],
   },
   {
     name: "Django API Systems",
     status: "Active",
     description:
       "REST APIs with validation, authentication, and production-minded backend patterns.",
+    tags: ["Django", "DRF", "REST"],
   },
   {
     name: "AI Automation Toolkit",
     status: "Active",
     description:
       "Developer productivity scripts designed to cut repetitive workflow effort.",
+    tags: ["Python", "Automation", "CLI"],
   },
 ];
 
 const stack = [
-  "Python",
-  "Django + DRF",
-  "C++",
-  "Java",
-  "Linux",
-  "Docker",
-  "Android Studio",
-  "Neovim",
-  "Supabase",
-  "CUDA (learning)",
-];
-
-const timelineData = [
-  {
-    id: 1,
-    title: "Backend Foundation",
-    date: "2023",
-    content:
-      "Started building Django REST APIs with cleaner validation, auth, and production-minded backend structure.",
-    category: "Backend",
-    icon: Server,
-    relatedIds: [2, 3],
-    status: "completed" as const,
-    energy: 96,
-  },
-  {
-    id: 2,
-    title: "AI Workflows",
-    date: "2024",
-    content:
-      "Moved into AI-assisted workflows and automation patterns that save developer time on real projects.",
-    category: "AI",
-    icon: Bot,
-    relatedIds: [1, 4],
-    status: "completed" as const,
-    energy: 88,
-  },
-  {
-    id: 3,
-    title: "ROM Engineering",
-    date: "2024",
-    content:
-      "Deepened Android ROM work with performance tuning, debugging, and smoother systems thinking.",
-    category: "Systems",
-    icon: Workflow,
-    relatedIds: [1, 5],
-    status: "in-progress" as const,
-    energy: 79,
-  },
-  {
-    id: 4,
-    title: "Learnalytics",
-    date: "Now",
-    content:
-      "Building a learning analytics platform with Django, AI ideas, and scalable backend architecture.",
-    category: "Project",
-    icon: Orbit,
-    relatedIds: [2, 5],
-    status: "in-progress" as const,
-    energy: 84,
-  },
-  {
-    id: 5,
-    title: "Impact Engine",
-    date: "Next",
-    content:
-      "Exploring dependency mapping, code impact tracking, and smarter tooling for backend teams.",
-    category: "Roadmap",
-    icon: GithubIcon,
-    relatedIds: [3, 4],
-    status: "pending" as const,
-    energy: 61,
-  },
+  { category: "Languages", items: ["Python", "C++", "Java", "Bash"] },
+  { category: "Backend", items: ["Django", "DRF", "REST APIs", "Supabase"] },
+  { category: "Systems", items: ["Linux", "Docker", "Android ROM", "CUDA"] },
+  { category: "Tools", items: ["Neovim", "Git", "GitHub Actions", "Vite"] },
 ];
 
 const baseUrl = import.meta.env.BASE_URL;
@@ -142,9 +70,9 @@ const heroImageFallbackSrc = `${baseUrl}assets/images/about/me-1.jpg`;
 
 function App() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="noise min-h-screen bg-background text-foreground">
       <MinimalistHero
-        logoText="JOEY"
+        logoText="joey"
         navLinks={navLinks}
         mainText="AI systems and backend engineer building automation-first products, scalable APIs, and performance-focused developer workflows."
         readMoreLink="#about"
@@ -152,202 +80,204 @@ function App() {
         imageFallbackSrc={heroImageFallbackSrc}
         imageAlt="Portrait of Shubham Panchal"
         overlayText={{
-          part1: "AI X",
+          part1: "AI",
           part2: "Backend",
         }}
         socialLinks={socialLinks}
         locationText="Pune / Mumbai, India"
-        accentClassName="bg-[#f2c300]"
       />
 
-      <main className="mx-auto flex max-w-7xl flex-col gap-24 px-6 pb-24 md:px-10">
-        <section
-          id="about"
-          className="grid gap-10 rounded-[2rem] border border-white/10 bg-white/5 p-8 backdrop-blur-sm md:grid-cols-[1.2fr_0.8fr]"
-        >
-          <div className="space-y-5">
-            <p className="text-sm uppercase tracking-[0.35em] text-cyan-300/80">
-              About
-            </p>
-            <h2 className="text-3xl font-bold md:text-5xl">
-              Building intelligent systems where automation meets performance.
-            </h2>
-            <p className="max-w-3xl text-base leading-8 text-foreground/75">
-              I specialize in backend APIs, AI workflow integration, Android
-              systems, and Linux-first developer tooling. My work blends system
-              thinking with practical shipping so products stay scalable,
-              observable, and genuinely useful.
-            </p>
-            <p className="max-w-3xl text-base leading-8 text-foreground/75">
-              Current direction: intelligent backend modules, automation-first
-              workflows, and platform-aware engineering that reduces friction
-              for real developers and real users.
-            </p>
-          </div>
-
-          <div className="grid gap-4">
-            <div className="rounded-[1.5rem] border border-cyan-400/20 bg-cyan-400/10 p-5">
-              <p className="text-sm uppercase tracking-[0.3em] text-cyan-200">
-                Mission
-              </p>
-              <ul className="mt-4 space-y-3 text-sm leading-7 text-foreground/80">
-                <li>Build intelligent systems powered by AI.</li>
-                <li>Engineer scalable backend architectures.</li>
-                <li>Optimize Android systems and developer workflows.</li>
-              </ul>
+      <main className="mx-auto max-w-5xl px-6 md:px-10">
+        {/* About */}
+        <section id="about" className="border-t border-white/[0.06] py-20">
+          <div className="grid gap-16 md:grid-cols-[1fr_1fr]">
+            <div>
+              <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground/30">
+                01 / About
+              </span>
+              <h2 className="mt-6 text-3xl font-bold leading-tight md:text-4xl">
+                Building systems that
+                <br />
+                ship and scale.
+              </h2>
             </div>
-            <div className="rounded-[1.5rem] border border-white/10 bg-black/20 p-5">
-              <p className="text-sm uppercase tracking-[0.3em] text-foreground/55">
-                Focus
+            <div className="space-y-5 text-[15px] leading-relaxed text-foreground/50">
+              <p>
+                I specialize in backend APIs, AI workflow integration, Android
+                systems, and Linux-first developer tooling. My work blends system
+                thinking with practical shipping.
               </p>
-              <p className="mt-4 text-sm leading-7 text-foreground/80">
-                Backend APIs, AI systems, automation tooling, Android
-                optimization, and Linux-driven productivity.
+              <p>
+                Current direction: intelligent backend modules, automation-first
+                workflows, and platform-aware engineering that reduces friction
+                for developers and users.
               </p>
+              <div className="flex gap-8 pt-4">
+                <div>
+                  <span className="font-mono text-2xl font-bold text-foreground">
+                    5+
+                  </span>
+                  <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-foreground/30">
+                    Projects
+                  </p>
+                </div>
+                <div>
+                  <span className="font-mono text-2xl font-bold text-foreground">
+                    3+
+                  </span>
+                  <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-foreground/30">
+                    Years
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        <section id="projects" className="space-y-8">
-          <div className="space-y-3">
-            <p className="text-sm uppercase tracking-[0.35em] text-cyan-300/80">
-              Projects In Motion
-            </p>
-            <h2 className="text-3xl font-bold md:text-5xl">
-              Active systems and experiments.
-            </h2>
-          </div>
+        {/* Projects */}
+        <section id="projects" className="border-t border-white/[0.06] py-20">
+          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground/30">
+            02 / Work
+          </span>
+          <h2 className="mt-6 mb-14 text-3xl font-bold md:text-4xl">
+            Selected projects
+          </h2>
 
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {projects.map((project) => (
+          <div className="space-y-0">
+            {projects.map((project, i) => (
               <article
                 key={project.name}
-                className="rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-6 transition-transform duration-300 hover:-translate-y-1"
+                className="group grid grid-cols-[1fr_auto] items-start gap-6 border-t border-white/[0.06] py-8 transition-colors hover:bg-white/[0.02]"
               >
-                <div className="flex items-center justify-between gap-4">
-                  <h3 className="text-xl font-semibold">{project.name}</h3>
-                  <span className="rounded-full border border-cyan-400/25 bg-cyan-400/10 px-3 py-1 text-xs uppercase tracking-[0.25em] text-cyan-200">
+                <div className="grid gap-3 md:grid-cols-[1.2fr_1fr] md:gap-8">
+                  <div>
+                    <span className="font-mono text-xs text-foreground/20">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="mt-1 text-lg font-semibold">
+                      {project.name}
+                    </h3>
+                  </div>
+                  <p className="text-sm text-foreground/40">
+                    {project.description}
+                  </p>
+                </div>
+                <div className="flex flex-col items-end gap-2">
+                  <span
+                    className={`font-mono text-[10px] uppercase tracking-widest ${
+                      project.status === "Active"
+                        ? "text-warm"
+                        : "text-foreground/30"
+                    }`}
+                  >
                     {project.status}
                   </span>
+                  <div className="flex gap-1.5">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-white/[0.06] px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-foreground/25"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-                <p className="mt-4 text-sm leading-7 text-foreground/75">
-                  {project.description}
-                </p>
               </article>
             ))}
           </div>
         </section>
 
-        <section id="timeline" className="space-y-8">
-          <div className="space-y-3">
-            <p className="text-sm uppercase tracking-[0.35em] text-cyan-300/80">
-              Timeline Orbit
-            </p>
-            <h2 className="text-3xl font-bold md:text-5xl">
-              A live map of the work I am building through.
-            </h2>
-            <p className="max-w-3xl text-sm leading-7 text-foreground/75">
-              This radial view tracks how my backend, AI, Android, and product
-              milestones connect. Click a node to inspect the stage, energy,
-              and related work.
-            </p>
-          </div>
+        {/* Stack */}
+        <section id="stack" className="border-t border-white/[0.06] py-20">
+          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground/30">
+            03 / Stack
+          </span>
+          <h2 className="mt-6 mb-14 text-3xl font-bold md:text-4xl">
+            Tech I work with
+          </h2>
 
-          <RadialOrbitalTimeline timelineData={timelineData} />
-        </section>
-
-        <section
-          id="stack"
-          className="grid gap-8 rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.05] to-cyan-500/[0.05] p-8 md:grid-cols-[0.9fr_1.1fr]"
-        >
-          <div className="space-y-4">
-            <p className="text-sm uppercase tracking-[0.35em] text-cyan-300/80">
-              Tech Arsenal
-            </p>
-            <h2 className="text-3xl font-bold md:text-5xl">
-              Backend, AI, systems, and deployment.
-            </h2>
-            <p className="text-sm leading-7 text-foreground/75">
-              My stack is shaped around shipping useful systems: APIs that hold
-              up, automations that save time, and performance-aware tooling that
-              keeps development moving.
-            </p>
-          </div>
-
-          <div className="grid gap-3 sm:grid-cols-2">
-            {stack.map((item) => (
-              <div
-                key={item}
-                className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm tracking-[0.2em] text-foreground/85"
-              >
-                {item}
+          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+            {stack.map((group) => (
+              <div key={group.category}>
+                <h3 className="font-mono text-[10px] uppercase tracking-[0.25em] text-warm">
+                  {group.category}
+                </h3>
+                <ul className="mt-4 space-y-2.5">
+                  {group.items.map((item) => (
+                    <li
+                      key={item}
+                      className="text-sm text-foreground/50 transition-colors hover:text-foreground"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
         </section>
 
-        <section
-          id="connect"
-          className="grid gap-6 rounded-[2rem] border border-white/10 bg-white/[0.03] p-8 md:grid-cols-3"
-        >
-          <div className="space-y-4 md:col-span-2">
-            <p className="text-sm uppercase tracking-[0.35em] text-cyan-300/80">
-              Connect
-            </p>
-            <h2 className="text-3xl font-bold md:text-5xl">
-              Open to backend, AI, and systems work.
-            </h2>
-            <p className="text-sm leading-7 text-foreground/75">
-              If you are building automation-heavy tools, backend systems, or
-              performance-sensitive products, I&apos;d love to connect.
-            </p>
-          </div>
+        {/* Connect */}
+        <section id="connect" className="border-t border-white/[0.06] py-20">
+          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground/30">
+            04 / Contact
+          </span>
+          <h2 className="mt-6 mb-4 text-3xl font-bold md:text-4xl">
+            Let&apos;s build something
+          </h2>
+          <p className="mb-12 max-w-md text-sm text-foreground/40">
+            Open to backend, AI, and systems work. If you&apos;re building
+            automation-heavy tools or performance-sensitive products.
+          </p>
 
-          <div className="grid gap-4">
+          <div className="grid gap-12 md:grid-cols-[1fr_1fr]">
             <ContactForm />
-            <div className="grid gap-4 sm:grid-cols-3">
-              <a
-                href={GITHUB_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-2xl border border-white/10 bg-black/20 p-5"
-              >
-                <GithubIcon className="h-5 w-5 text-cyan-200" />
-              </a>
-              <a
-                href={TELEGRAM_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-2xl border border-white/10 bg-black/20 p-5"
-              >
-                <Send className="h-5 w-5 text-cyan-200" />
-              </a>
-              <a
-                href={`mailto:${EMAIL}`}
-                className="rounded-2xl border border-white/10 bg-black/20 p-5"
-              >
-                <Mail className="h-5 w-5 text-cyan-200" />
-              </a>
+            <div className="flex flex-col gap-6">
+              <div className="space-y-3">
+                <a
+                  href={`mailto:${EMAIL}`}
+                  className="group flex items-center gap-3 text-sm text-foreground/50 transition-colors hover:text-foreground"
+                >
+                  <Mail className="h-4 w-4 text-foreground/20 group-hover:text-warm" />
+                  {EMAIL}
+                </a>
+                <a
+                  href={GITHUB_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group flex items-center gap-3 text-sm text-foreground/50 transition-colors hover:text-foreground"
+                >
+                  <GithubIcon className="h-4 w-4 text-foreground/20 group-hover:text-warm" />
+                  github.com/Joey-1123
+                </a>
+                <a
+                  href={TELEGRAM_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group flex items-center gap-3 text-sm text-foreground/50 transition-colors hover:text-foreground"
+                >
+                  <Send className="h-4 w-4 text-foreground/20 group-hover:text-warm" />
+                  @JoeyOnRise
+                </a>
+              </div>
             </div>
           </div>
         </section>
 
         <QaSection />
 
-        <section className="grid gap-4 border-t border-white/10 pt-8 text-sm text-foreground/55 md:grid-cols-3">
-          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-            <Bot className="mb-3 h-5 w-5 text-cyan-200" />
-            AI workflows integrated into practical engineering loops.
+        {/* Footer */}
+        <footer className="border-t border-white/[0.06] py-8">
+          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-foreground/20">
+              &copy; {new Date().getFullYear()} Shubham Panchal
+            </span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-foreground/20">
+              Built with React + TypeScript
+            </span>
           </div>
-          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-            <Workflow className="mb-3 h-5 w-5 text-cyan-200" />
-            Automation-first design that reduces repetition and scales systems.
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-            <Server className="mb-3 h-5 w-5 text-cyan-200" />
-            Backend systems shaped by performance, observability, and structure.
-          </div>
-        </section>
+        </footer>
       </main>
     </div>
   );

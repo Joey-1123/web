@@ -6,8 +6,7 @@ describe("QaSection", () => {
   it("renders the section heading", () => {
     render(<QaSection />);
 
-    expect(screen.getByText("Q&A")).toBeInTheDocument();
-    expect(screen.getByText("Ask me anything")).toBeInTheDocument();
+    expect(screen.getByText("Questions")).toBeInTheDocument();
   });
 
   it("renders initial questions", () => {
@@ -18,16 +17,13 @@ describe("QaSection", () => {
         "How do you approach backend design when a project is still evolving fast?"
       )
     ).toBeInTheDocument();
-    expect(
-      screen.getByText("Where does AI actually fit into your engineering workflow today?")
-    ).toBeInTheDocument();
   });
 
   it("renders the question form", () => {
     render(<QaSection />);
 
     expect(
-      screen.getByPlaceholderText("Your question")
+      screen.getByPlaceholderText("Your question...")
     ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /ask/i })).toBeInTheDocument();
   });

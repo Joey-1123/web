@@ -6,11 +6,11 @@ describe("ContactForm", () => {
   it("renders the form with all fields", () => {
     render(<ContactForm />);
 
-    expect(screen.getByPlaceholderText("Your name")).toBeInTheDocument();
-    expect(screen.getByPlaceholderText("Your email")).toBeInTheDocument();
-    expect(screen.getByPlaceholderText("Your message")).toBeInTheDocument();
+    expect(screen.getByPlaceholderText("Name")).toBeInTheDocument();
+    expect(screen.getByPlaceholderText("Email")).toBeInTheDocument();
+    expect(screen.getByPlaceholderText("Message")).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /send message/i })
+      screen.getByRole("button", { name: /send/i })
     ).toBeInTheDocument();
   });
 

@@ -1,5 +1,4 @@
 import { useState, type FormEvent } from "react";
-import { Send } from "lucide-react";
 import { FORMSUBMIT_ENDPOINT } from "@/lib/constants";
 
 const COOLDOWN_SECONDS = 45;
@@ -47,16 +46,16 @@ export function ContactForm() {
       });
       if (!response.ok) throw new Error("submit failed");
       form.reset();
-      setStatus("Message sent. I will reply soon.");
+      setStatus("Sent. I'll get back to you.");
     } catch {
-      setStatus("Send failed. Please email me directly.");
+      setStatus("Failed. Email me directly.");
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="grid gap-3">
+    <form onSubmit={handleSubmit} className="grid gap-4">
       <input
         type="text"
         name="website"
@@ -69,37 +68,38 @@ export function ContactForm() {
       <input
         name="name"
         type="text"
-        placeholder="Your name"
+        placeholder="Name"
         required
-        className="rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-foreground placeholder:text-foreground/40"
+        className="border-b border-white/[0.08] bg-transparent py-3 text-sm text-foreground placeholder:text-foreground/20 focus:border-warm focus:outline-none"
       />
       <input
         name="email"
         type="email"
-        placeholder="Your email"
+        placeholder="Email"
         required
-        className="rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-foreground placeholder:text-foreground/40"
+        className="border-b border-white/[0.08] bg-transparent py-3 text-sm text-foreground placeholder:text-foreground/20 focus:border-warm focus:outline-none"
       />
       <textarea
         name="message"
         rows={3}
-        placeholder="Your message"
+        placeholder="Message"
         required
-        className="rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-foreground placeholder:text-foreground/40"
+        className="resize-none border-b border-white/[0.08] bg-transparent py-3 text-sm text-foreground placeholder:text-foreground/20 focus:border-warm focus:outline-none"
       />
-      <button
-        type="submit"
-        disabled={submitting}
-        className="flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/10 px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-white/20 disabled:opacity-50"
-      >
-        <Send className="h-4 w-4" />
-        {submitting ? "Sending..." : "Send Message"}
-      </button>
-      {status && (
-        <p className="text-sm text-foreground/60" role="status" aria-live="polite">
-          {status}
-        </p>
-      )}
+      <div className="flex items-center gap-4">
+        <button
+          type="submit"
+          disabled={submitting}
+          className="font-mono text-xs uppercase tracking-widest text-warm transition-colors hover:text-foreground disabled:opacity-40"
+        >
+          {submitting ? "Sending..." : "Send"}
+        </button>
+        {status && (
+          <span className="text-xs text-foreground/30" role="status" aria-live="polite">
+            {status}
+          </span>
+        )}
+      </div>
     </form>
   );
 }

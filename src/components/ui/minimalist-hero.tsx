@@ -18,7 +18,6 @@ interface MinimalistHeroProps {
   socialLinks: { icon: ComponentType<{ className?: string }>; href: string; label: string }[];
   locationText: string;
   className?: string;
-  accentClassName?: string;
 }
 
 const NavLink = ({
@@ -30,7 +29,7 @@ const NavLink = ({
 }) => (
   <a
     href={href}
-    className="text-sm font-medium tracking-[0.3em] text-foreground/60 transition-colors hover:text-foreground"
+    className="font-mono text-xs uppercase tracking-widest text-foreground/40 transition-colors hover:text-foreground"
   >
     {children}
   </a>
@@ -49,10 +48,10 @@ const SocialIcon = ({
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="text-foreground/60 transition-colors hover:text-foreground"
+    className="text-foreground/30 transition-colors hover:text-warm"
     aria-label={label}
   >
-    <Icon className="h-5 w-5" />
+    <Icon className="h-4 w-4" />
   </a>
 );
 
@@ -68,13 +67,12 @@ export const MinimalistHero = ({
   socialLinks,
   locationText,
   className,
-  accentClassName,
 }: MinimalistHeroProps) => {
   const [currentImageSrc, setCurrentImageSrc] = useState(imageSrc);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const placeholderSrc =
-    "https://placehold.co/400x600/eab308/ffffff?text=Image+Not+Found";
+    "https://placehold.co/400x600/1a1a1a/e8e4de?text=Image+Not+Found";
 
   const handleImageError = useCallback(() => {
     if (imageFallbackSrc && currentImageSrc !== imageFallbackSrc) {
@@ -87,23 +85,22 @@ export const MinimalistHero = ({
   return (
     <div
       className={cn(
-        "relative flex min-h-screen w-full flex-col items-center justify-between overflow-hidden bg-background px-6 py-8 font-sans md:px-10 md:py-12",
+        "relative flex min-h-screen w-full flex-col overflow-hidden bg-background px-6 py-8 font-sans md:px-10 md:py-10",
         className
       )}
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.04),_transparent_20%),linear-gradient(180deg,_rgba(255,255,255,0.02),_transparent_28%)]" />
-
-      <header className="z-30 flex w-full max-w-7xl items-center justify-between gap-6">
+      {/* Header */}
+      <header className="z-30 flex w-full items-center justify-between">
         <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-lg font-semibold tracking-[0.18em] text-foreground"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          className="font-mono text-xs tracking-[0.3em] text-foreground/50"
         >
           {logoText}
         </motion.div>
 
-        <div className="hidden items-center space-x-8 md:flex">
+        <div className="hidden items-center gap-10 md:flex">
           {navLinks.map((link) => (
             <NavLink key={link.label} href={link.href}>
               {link.label}
@@ -112,18 +109,17 @@ export const MinimalistHero = ({
         </div>
 
         <motion.button
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-          className="flex flex-col space-y-1.5 md:hidden"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col gap-1 md:hidden"
           aria-label="Open menu"
           aria-expanded={mobileMenuOpen}
           type="button"
           onClick={() => setMobileMenuOpen(true)}
         >
-          <span className="block h-0.5 w-6 bg-foreground" />
-          <span className="block h-0.5 w-6 bg-foreground" />
-          <span className="block h-0.5 w-5 bg-foreground" />
+          <span className="block h-px w-5 bg-foreground/60" />
+          <span className="block h-px w-3.5 bg-foreground/60" />
         </motion.button>
       </header>
 
@@ -133,79 +129,69 @@ export const MinimalistHero = ({
         navLinks={navLinks}
       />
 
-      <div className="relative grid w-full max-w-7xl flex-1 grid-cols-1 items-center gap-12 py-10 md:grid-cols-[0.9fr_1.1fr_1fr] md:gap-10 lg:gap-14">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.9 }}
-          className="order-2 z-20 mx-auto max-w-sm text-center md:order-1 md:mx-0 md:max-w-[18rem] md:self-center md:text-left"
-        >
-          <p className="mx-auto text-base leading-8 text-foreground/82 md:mx-0">
-            {mainText}
-          </p>
-          <a
-            href={readMoreLink}
-            className="mt-5 inline-block text-sm font-semibold text-foreground underline decoration-from-font underline-offset-4"
-          >
-            Read More
-          </a>
-        </motion.div>
+      {/* Main content */}
+      <div className="relative z-10 flex flex-1 flex-col justify-center">
+        <div className="grid w-full grid-cols-1 items-end gap-12 md:grid-cols-[1fr_auto] md:gap-8">
+          {/* Left: text */}
+          <div className="flex flex-col justify-end gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+            >
+              <h1 className="text-[clamp(3rem,8vw,7.5rem)] font-black uppercase leading-[0.85] tracking-[-0.04em] text-foreground">
+                {overlayText.part1}
+                <br />
+                <span className="text-foreground/20">{overlayText.part2}</span>
+              </h1>
+            </motion.div>
 
-        <div className="relative order-1 flex h-[25rem] items-center justify-center md:order-2 md:h-[36rem] lg:h-[40rem]">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="max-w-md"
+            >
+              <p className="text-sm leading-relaxed text-foreground/50">
+                {mainText}
+              </p>
+              <a
+                href={readMoreLink}
+                className="mt-4 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-warm transition-colors hover:text-foreground"
+              >
+                <span className="h-px w-4 bg-warm" />
+                Read more
+              </a>
+            </motion.div>
+          </div>
+
+          {/* Right: image */}
           <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{
-              duration: 0.8,
-              ease: [0.22, 1, 0.36, 1],
-              delay: 0.2,
-            }}
-            className={cn(
-              "absolute left-1/2 top-1/2 z-0 h-[16rem] w-[16rem] -translate-x-1/2 -translate-y-[40%] rounded-full md:h-[24rem] md:w-[24rem] lg:h-[28rem] lg:w-[28rem]",
-              accentClassName ?? "bg-[#f2c300]"
-            )}
-          />
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 1,
-              ease: [0.22, 1, 0.36, 1],
-              delay: 0.4,
-            }}
-            className="relative z-10 aspect-[4/5] w-[16rem] overflow-hidden rounded-[2rem] shadow-[0_30px_80px_rgba(0,0,0,0.42)] md:w-[21rem] lg:w-[24rem]"
+            transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="relative aspect-[3/4] w-[18rem] overflow-hidden md:w-[20rem] lg:w-[24rem]"
           >
             <img
               src={currentImageSrc}
               alt={imageAlt}
               width={384}
-              height={480}
-              className="h-full w-full object-cover object-center"
+              height={512}
+              className="h-full w-full object-cover object-center grayscale-[20%]"
               onError={handleImageError}
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
           </motion.div>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.1 }}
-          className="order-3 z-20 flex items-center justify-center text-center md:justify-start md:self-center md:text-left"
-        >
-          <h1 className="text-[clamp(4.2rem,10vw,8.8rem)] font-black uppercase leading-[0.88] tracking-[-0.07em] text-foreground">
-            {overlayText.part1}
-            <br />
-            {overlayText.part2}
-          </h1>
-        </motion.div>
       </div>
 
-      <footer className="z-30 flex w-full max-w-7xl items-center justify-between gap-6">
+      {/* Footer */}
+      <footer className="z-30 flex w-full items-end justify-between pt-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 1.2 }}
-          className="flex items-center space-x-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 1 }}
+          className="flex items-center gap-5"
         >
           {socialLinks.map((link) => (
             <SocialIcon
@@ -218,10 +204,10 @@ export const MinimalistHero = ({
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 1.3 }}
-          className="text-sm font-medium tracking-[0.18em] text-foreground/80"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 1.1 }}
+          className="font-mono text-[10px] uppercase tracking-[0.25em] text-foreground/25"
         >
           {locationText}
         </motion.div>

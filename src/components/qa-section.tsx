@@ -89,25 +89,23 @@ export function QaSection() {
 
     setQuestions((prev) => [newItem, ...prev]);
     form.reset();
-    setStatus("Question added.");
+    setStatus("Added.");
   };
 
   return (
-    <section id="qa" className="space-y-8">
-      <div className="space-y-3">
-        <p className="text-sm uppercase tracking-[0.35em] text-cyan-300/80">
-          Q&A
-        </p>
-        <h2 className="text-3xl font-bold md:text-5xl">
-          Ask me anything
-        </h2>
-        <p className="max-w-3xl text-sm leading-7 text-foreground/75">
-          Questions and answers around backend architecture, AI systems,
-          automation, and Android development.
-        </p>
-      </div>
+    <section id="qa" className="border-t border-white/[0.06] py-20">
+      <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground/30">
+        05 / Q&A
+      </span>
+      <h2 className="mt-6 mb-4 text-3xl font-bold md:text-4xl">
+        Questions
+      </h2>
+      <p className="mb-10 max-w-md text-sm text-foreground/40">
+        Ask me anything about backend architecture, AI systems, automation, or
+        Android development.
+      </p>
 
-      <form onSubmit={handleSubmit} className="grid gap-3 max-w-xl">
+      <form onSubmit={handleSubmit} className="mb-12 flex gap-3">
         <input
           type="text"
           name="website"
@@ -116,38 +114,40 @@ export function QaSection() {
           aria-hidden="true"
           className="sr-only"
         />
-        <div className="flex gap-2">
-          <input
-            id="qa-question"
-            name="question"
-            type="text"
-            placeholder="Your question"
-            required
-            className="flex-1 rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-foreground placeholder:text-foreground/40"
-          />
-          <button
-            type="submit"
-            className="rounded-full border border-white/10 bg-white/10 px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-white/20"
-          >
-            Ask
-          </button>
-        </div>
+        <input
+          id="qa-question"
+          name="question"
+          type="text"
+          placeholder="Your question..."
+          required
+          className="flex-1 border-b border-white/[0.08] bg-transparent py-3 text-sm text-foreground placeholder:text-foreground/20 focus:border-warm focus:outline-none"
+        />
+        <button
+          type="submit"
+          className="font-mono text-xs uppercase tracking-widest text-warm transition-colors hover:text-foreground"
+        >
+          Ask
+        </button>
         {status && (
-          <p className="text-sm text-foreground/60" role="status" aria-live="polite">
+          <span className="self-center text-xs text-foreground/30" role="status" aria-live="polite">
             {status}
-          </p>
+          </span>
         )}
       </form>
 
-      <div className="grid gap-6">
+      <div className="space-y-0">
         {questions.map((item, index) => (
           <article
             key={`${item.date}-${index}`}
-            className="border-b border-white/10 pb-6"
+            className="border-t border-white/[0.06] py-6"
           >
-            <p className="mb-2 text-sm text-foreground/50">{item.date}</p>
-            <h3 className="mb-2 text-xl font-semibold">{item.question}</h3>
-            <p className="text-sm leading-7 text-foreground/75">
+            <div className="mb-2 flex items-center gap-3">
+              <span className="font-mono text-[10px] text-foreground/20">
+                {item.date}
+              </span>
+            </div>
+            <h3 className="text-base font-medium">{item.question}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-foreground/40">
               {item.answer}
             </p>
           </article>
