@@ -1,8 +1,18 @@
-import React from "react";
-import { Bot, Github, Mail, Orbit, Send, Server, Workflow } from "lucide-react";
+import {
+  Bot,
+  Mail,
+  Orbit,
+  Send,
+  Server,
+  Workflow,
+} from "lucide-react";
 
 import { MinimalistHero } from "@/components/ui/minimalist-hero";
 import RadialOrbitalTimeline from "@/components/ui/radial-orbital-timeline";
+import { ContactForm } from "@/components/contact-form";
+import { QaSection } from "@/components/qa-section";
+import { GithubIcon } from "@/components/ui/github-icon";
+import { EMAIL, GITHUB_URL, TELEGRAM_URL } from "@/lib/constants";
 
 const navLinks = [
   { label: "ABOUT", href: "#about" },
@@ -12,9 +22,9 @@ const navLinks = [
 ];
 
 const socialLinks = [
-  { icon: Github, href: "https://github.com/Joey-1123" },
-  { icon: Send, href: "https://t.me/JoeyOnRise" },
-  { icon: Mail, href: "mailto:shubhampanchal9168@gmail.com" },
+  { icon: GithubIcon, href: GITHUB_URL, label: "GitHub" },
+  { icon: Send, href: TELEGRAM_URL, label: "Telegram" },
+  { icon: Mail, href: `mailto:${EMAIL}`, label: "Email" },
 ];
 
 const projects = [
@@ -119,7 +129,7 @@ const timelineData = [
     content:
       "Exploring dependency mapping, code impact tracking, and smarter tooling for backend teams.",
     category: "Roadmap",
-    icon: Github,
+    icon: GithubIcon,
     relatedIds: [3, 4],
     status: "pending" as const,
     energy: 61,
@@ -294,43 +304,35 @@ function App() {
           </div>
 
           <div className="grid gap-4">
-            <a
-              href="mailto:shubhampanchal9168@gmail.com"
-              className="rounded-2xl border border-white/10 bg-black/20 p-5"
-            >
-              <div className="flex items-center gap-3 text-cyan-200">
-                <Mail className="h-5 w-5" />
-                <span className="text-xs uppercase tracking-[0.3em]">
-                  Email
-                </span>
-              </div>
-              <p className="mt-3 text-sm text-foreground/80">
-                shubhampanchal9168@gmail.com
-              </p>
-            </a>
+            <ContactForm />
             <div className="grid gap-4 sm:grid-cols-3">
               <a
-                href="https://github.com/Joey-1123"
+                href={GITHUB_URL}
                 target="_blank"
                 rel="noreferrer"
                 className="rounded-2xl border border-white/10 bg-black/20 p-5"
               >
-                <Github className="h-5 w-5 text-cyan-200" />
+                <GithubIcon className="h-5 w-5 text-cyan-200" />
               </a>
               <a
-                href="https://t.me/JoeyOnRise"
+                href={TELEGRAM_URL}
                 target="_blank"
                 rel="noreferrer"
                 className="rounded-2xl border border-white/10 bg-black/20 p-5"
               >
                 <Send className="h-5 w-5 text-cyan-200" />
               </a>
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-5">
-                <Server className="h-5 w-5 text-cyan-200" />
-              </div>
+              <a
+                href={`mailto:${EMAIL}`}
+                className="rounded-2xl border border-white/10 bg-black/20 p-5"
+              >
+                <Mail className="h-5 w-5 text-cyan-200" />
+              </a>
             </div>
           </div>
         </section>
+
+        <QaSection />
 
         <section className="grid gap-4 border-t border-white/10 pt-8 text-sm text-foreground/55 md:grid-cols-3">
           <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">

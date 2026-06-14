@@ -1,40 +1,49 @@
 {
-  "name": "new-project",
+  "name": "joey-portfolio",
   "version": "1.0.0",
   "description": "Shubham Panchal portfolio rebuilt with React, TypeScript, Tailwind, and motion-driven UI.",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Joey-1123/MY_PORTFOLIO.git"
+    "url": "git+https://github.com/Joey-1123/web.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Shubham Panchal",
   "license": "ISC",
   "type": "module",
-  "bugs": {
-    "url": "https://github.com/Joey-1123/MY_PORTFOLIO/issues"
+  "engines": {
+    "node": ">=22"
   },
-  "homepage": "https://joey-1123.github.io/MY_PORTFOLIO/",
+  "bugs": {
+    "url": "https://github.com/Joey-1123/web/issues"
+  },
+  "homepage": "https://joey-1123.github.io/web/",
   "devDependencies": {
     "@tailwindcss/vite": "^4.2.2",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
     "@types/node": "^24.7.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
+    "jsdom": "^29.1.1",
     "tailwindcss": "^4.2.2",
     "typescript": "^6.0.2",
-    "vite": "^8.0.3"
+    "vite": "^8.0.3",
+    "vitest": "^3.2.1"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.24",
-    "lucide-react": "^0.552.0",
+    "lucide-react": "^1.18.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "tailwind-merge": "^3.3.1"

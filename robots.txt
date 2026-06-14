@@ -1,3 +1,3 @@
 ﻿User-agent: *
 Allow: /
-Sitemap: https://joey-1123.github.io/MY_PORTFOLIO/sitemap.xml
+Sitemap: https://joey-1123.github.io/web/sitemap.xml

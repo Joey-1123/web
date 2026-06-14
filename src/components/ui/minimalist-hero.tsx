@@ -1,7 +1,7 @@
-﻿import React, { useMemo, useState } from "react";
+﻿import { useState, useCallback, type ComponentType } from "react";
 import { motion } from "framer-motion";
-import { type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { MobileNav } from "@/components/ui/mobile-nav";
 
 interface MinimalistHeroProps {
   logoText: string;
@@ -15,7 +15,7 @@ interface MinimalistHeroProps {
     part1: string;
     part2: string;
   };
-  socialLinks: { icon: LucideIcon; href: string }[];
+  socialLinks: { icon: ComponentType<{ className?: string }>; href: string; label: string }[];
   locationText: string;
   className?: string;
   accentClassName?: string;
@@ -39,15 +39,18 @@ const NavLink = ({
 const SocialIcon = ({
   href,
   icon: Icon,
+  label,
 }: {
   href: string;
-  icon: LucideIcon;
+  icon: ComponentType<{ className?: string }>;
+  label: string;
 }) => (
   <a
     href={href}
     target="_blank"
     rel="noopener noreferrer"
     className="text-foreground/60 transition-colors hover:text-foreground"
+    aria-label={label}
   >
     <Icon className="h-5 w-5" />
   </a>
@@ -68,12 +71,18 @@ export const MinimalistHero = ({
   accentClassName,
 }: MinimalistHeroProps) => {
   const [currentImageSrc, setCurrentImageSrc] = useState(imageSrc);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const placeholderSrc = useMemo(
-    () =>
-      "https://placehold.co/400x600/eab308/ffffff?text=Image+Not+Found",
-    []
-  );
+  const placeholderSrc =
+    "https://placehold.co/400x600/eab308/ffffff?text=Image+Not+Found";
+
+  const handleImageError = useCallback(() => {
+    if (imageFallbackSrc && currentImageSrc !== imageFallbackSrc) {
+      setCurrentImageSrc(imageFallbackSrc);
+    } else if (currentImageSrc !== placeholderSrc) {
+      setCurrentImageSrc(placeholderSrc);
+    }
+  }, [currentImageSrc, imageFallbackSrc, placeholderSrc]);
 
   return (
     <div
@@ -108,13 +117,21 @@ export const MinimalistHero = ({
           transition={{ duration: 0.5 }}
           className="flex flex-col space-y-1.5 md:hidden"
           aria-label="Open menu"
+          aria-expanded={mobileMenuOpen}
           type="button"
+          onClick={() => setMobileMenuOpen(true)}
         >
           <span className="block h-0.5 w-6 bg-foreground" />
           <span className="block h-0.5 w-6 bg-foreground" />
           <span className="block h-0.5 w-5 bg-foreground" />
         </motion.button>
       </header>
+
+      <MobileNav
+        isOpen={mobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
+        navLinks={navLinks}
+      />
 
       <div className="relative grid w-full max-w-7xl flex-1 grid-cols-1 items-center gap-12 py-10 md:grid-cols-[0.9fr_1.1fr_1fr] md:gap-10 lg:gap-14">
         <motion.div
@@ -161,17 +178,10 @@ export const MinimalistHero = ({
             <img
               src={currentImageSrc}
               alt={imageAlt}
+              width={384}
+              height={480}
               className="h-full w-full object-cover object-center"
-              onError={() => {
-                if (imageFallbackSrc && currentImageSrc !== imageFallbackSrc) {
-                  setCurrentImageSrc(imageFallbackSrc);
-                  return;
-                }
-
-                if (currentImageSrc !== placeholderSrc) {
-                  setCurrentImageSrc(placeholderSrc);
-                }
-              }}
+              onError={handleImageError}
             />
           </motion.div>
         </div>
@@ -197,8 +207,13 @@ export const MinimalistHero = ({
           transition={{ duration: 0.5, delay: 1.2 }}
           className="flex items-center space-x-4"
         >
-          {socialLinks.map((link, index) => (
-            <SocialIcon key={index} href={link.href} icon={link.icon} />
+          {socialLinks.map((link) => (
+            <SocialIcon
+              key={link.href}
+              href={link.href}
+              icon={link.icon}
+              label={link.label}
+            />
           ))}
         </motion.div>
 
