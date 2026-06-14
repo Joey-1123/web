@@ -1,4 +1,5 @@
 ﻿import { useState, useCallback, type ComponentType } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { MobileNav } from "@/components/ui/mobile-nav";
@@ -7,7 +8,6 @@ interface MinimalistHeroProps {
   logoText: string;
   navLinks: { label: string; href: string }[];
   mainText: string;
-  readMoreLink: string;
   imageSrc: string;
   imageFallbackSrc?: string;
   imageAlt: string;
@@ -23,17 +23,20 @@ interface MinimalistHeroProps {
 const NavLink = ({
   href,
   children,
+  isActive,
 }: {
   href: string;
   children: React.ReactNode;
-}) => (
-  <a
-    href={href}
-    className="font-mono text-xs uppercase tracking-widest text-foreground/40 transition-colors hover:text-foreground"
-  >
-    {children}
-  </a>
-);
+  isActive: boolean;
+}) => {
+  const className = `font-mono text-xs uppercase tracking-widest transition-colors ${
+    isActive ? "text-foreground" : "text-foreground/40 hover:text-foreground"
+  }`;
+  if (href.startsWith("/")) {
+    return <Link to={href} className={className}>{children}</Link>;
+  }
+  return <a href={href} className={className}>{children}</a>;
+};
 
 const SocialIcon = ({
   href,
@@ -59,7 +62,6 @@ export const MinimalistHero = ({
   logoText,
   navLinks,
   mainText,
-  readMoreLink,
   imageSrc,
   imageFallbackSrc,
   imageAlt,
@@ -70,6 +72,12 @@ export const MinimalistHero = ({
 }: MinimalistHeroProps) => {
   const [currentImageSrc, setCurrentImageSrc] = useState(imageSrc);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const isActive = (href: string) => {
+    if (href.startsWith("/")) return location.pathname === href;
+    return false;
+  };
 
   const placeholderSrc =
     "https://placehold.co/400x600/1a1a1a/e8e4de?text=Image+Not+Found";
@@ -102,7 +110,7 @@ export const MinimalistHero = ({
 
         <div className="hidden items-center gap-10 md:flex">
           {navLinks.map((link) => (
-            <NavLink key={link.label} href={link.href}>
+            <NavLink key={link.label} href={link.href} isActive={isActive(link.href)}>
               {link.label}
             </NavLink>
           ))}
@@ -155,13 +163,17 @@ export const MinimalistHero = ({
               <p className="text-sm leading-relaxed text-foreground/50">
                 {mainText}
               </p>
-              <a
-                href={readMoreLink}
-                className="mt-4 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-warm transition-colors hover:text-foreground"
+              <button
+                type="button"
+                onClick={() => {
+                  const el = document.getElementById("about");
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="mt-4 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-warm transition-colors hover:text-foreground cursor-pointer"
               >
                 <span className="h-px w-4 bg-warm" />
                 Read more
-              </a>
+              </button>
             </motion.div>
           </div>
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 
 const Button = React.forwardRef<
@@ -94,6 +95,7 @@ export default function PortfolioHero() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.documentElement.classList.add("dark");
@@ -127,13 +129,33 @@ export default function PortfolioHero() {
   };
 
   const menuItems = [
-    { label: "HOME", href: "/", highlight: true },
-    { label: "PORTFOLIO", href: "/portfolio" },
-    { label: "ABOUT", href: "/portfolio#about" },
-    { label: "PROJECTS", href: "/portfolio#projects" },
-    { label: "STACK", href: "/portfolio#stack" },
-    { label: "CONTACT", href: "/portfolio#connect" },
+    { label: "HOME", to: "/", highlight: true },
+    { label: "PORTFOLIO", to: "/portfolio" },
+    { label: "ABOUT", to: "/portfolio", hash: "about" },
+    { label: "PROJECTS", to: "/projects" },
+    { label: "STACK", to: "/portfolio", hash: "stack" },
+    { label: "WRITING", to: "/blog" },
+    { label: "CONTACT", to: "/portfolio", hash: "connect" },
   ];
+
+  const handleNavClick = (to: string, hash?: string) => {
+    setIsMenuOpen(false);
+    if (hash) {
+      navigate(to);
+      const waitForEl = (retries = 20) => {
+        const el = document.getElementById(hash);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+        } else if (retries > 0) {
+          setTimeout(() => waitForEl(retries - 1), 50);
+        }
+      };
+      setTimeout(() => waitForEl(), 100);
+    } else {
+      navigate(to);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
 
   return (
     <div
@@ -179,10 +201,10 @@ export default function PortfolioHero() {
                 }}
               >
                 {menuItems.map((item) => (
-                  <a
+                  <button
                     key={item.label}
-                    href={item.href}
-                    className="cursor-pointer py-1.5 px-2 text-lg font-bold tracking-tight transition-colors duration-300 md:text-xl"
+                    type="button"
+                    className="cursor-pointer py-1.5 px-2 text-lg font-bold tracking-tight transition-colors duration-300 md:text-xl w-full text-left"
                     style={{
                       display: "block",
                       color: item.highlight
@@ -201,10 +223,10 @@ export default function PortfolioHero() {
                           ? "hsl(0 0% 100%)"
                           : "hsl(0 0% 10%)";
                     }}
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={() => handleNavClick(item.to, item.hash)}
                   >
                     {item.label}
-                  </a>
+                  </button>
                 ))}
               </div>
             )}
@@ -295,13 +317,13 @@ export default function PortfolioHero() {
         </div>
 
         {/* Scroll Indicator */}
-        <a
-          href="/portfolio"
+        <Link
+          to="/portfolio"
           className="absolute bottom-6 left-1/2 -translate-x-1/2 transition-colors duration-300 md:bottom-10"
           aria-label="Scroll down"
         >
           <ChevronDown className="h-5 w-5 text-neutral-500 transition-colors duration-300 hover:text-black dark:hover:text-white md:h-8 md:w-8" />
-        </a>
+        </Link>
       </main>
     </div>
   );

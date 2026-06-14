@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 import { X } from "lucide-react";
 
 interface MobileNavProps {
@@ -39,19 +40,36 @@ export function MobileNav({ isOpen, onClose, navLinks }: MobileNavProps) {
               </button>
             </div>
             <nav className="mt-16 flex flex-col gap-6">
-              {navLinks.map((link, i) => (
-                <motion.a
-                  key={link.label}
-                  href={link.href}
-                  onClick={onClose}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                  className="font-mono text-xs uppercase tracking-widest text-foreground/40 transition-colors hover:text-foreground"
-                >
-                  {link.label}
-                </motion.a>
-              ))}
+              {navLinks.map((link, i) =>
+                link.href.startsWith("/") ? (
+                  <motion.div
+                    key={link.label}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                  >
+                    <Link
+                      to={link.href}
+                      onClick={onClose}
+                      className="font-mono text-xs uppercase tracking-widest text-foreground/40 transition-colors hover:text-foreground"
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                ) : (
+                  <motion.a
+                    key={link.label}
+                    href={link.href}
+                    onClick={onClose}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                    className="font-mono text-xs uppercase tracking-widest text-foreground/40 transition-colors hover:text-foreground"
+                  >
+                    {link.label}
+                  </motion.a>
+                )
+              )}
             </nav>
           </motion.div>
         </>

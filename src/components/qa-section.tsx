@@ -95,7 +95,7 @@ export function QaSection() {
   return (
     <section id="qa" className="border-t border-white/[0.06] py-20">
       <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground/30">
-        05 / Q&A
+        06 / Q&A
       </span>
       <h2 className="mt-6 mb-4 text-3xl font-bold md:text-4xl">
         Questions

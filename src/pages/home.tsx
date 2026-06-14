@@ -1,6 +1,8 @@
 import PortfolioHero from "@/components/ui/portfolio-hero";
+import { usePageMeta } from "@/hooks/use-page-meta";
 
 export default function Home() {
+  usePageMeta("Home", "AI Systems and Backend Engineer building automation-first products, scalable APIs, and performance-focused systems.");
   return (
     <>
       <link
